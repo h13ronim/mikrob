@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
+<!DOCTYPE HTML>
+<html>
+  <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <!-- prototype stuff -->
   <script type="text/javascript" src="libs/prototype.js"></script>
@@ -33,24 +33,26 @@
   <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8"/>
   <link rel="stylesheet" href="win32.css" type="text/css" media="screen" charset="utf-8"/>
   <link rel="stylesheet" href="linux.css" type="text/css" media="screen" charset="utf-8"/>
-</head>
+  </head>
 <body>
-  <div id="wrapper">
-    <div id="controls">
-      <form action="#" method="" accept-charset="utf-8" id="login_form">
-        <input type="submit" class="button" value="Zaloguj się do swoich kont &rarr;">
+
+
+    <form action="#" method="" id="sender" accept-charset="utf-8">
+      <textarea  id="main_textarea" name="content" rows="3" placeholder="Co teraz robisz? O czym myślisz? Dokąd zmierzamy?" autofocus ></textarea>
+      <div>
+        <span id="charcount" class="sender_item">0</span>
+        <button  class="button small sender_item" name="submit" value="" ><img src="app://icons/dryicons-colorful-sketches/16/mail.png">Wyślij</button>
+        <a href="#" class="button small sender_item" title="Zmienia wiadomość na prywatną" id="make_private"><img src="app://icons/dryicons-colorful-sketches/24/lock.png">Sprywatyzuj</a>
+        <a href="#" class="button small sender_item"  id="shorten_links">Skróć linki</a>
+        <a href="#" class="button small sender_item"  id="shorten_links">Wrzuć linka</a>
+        <a href="#" class="button small sender_item"  id="shorten_links">Wrzuć obrazek</a>
+
+      </div>
+<!--      <input type="submit" class="button" value="Dodaj Obraz"> -->
+<!--      <input type="submit" class="button" value="Wyślij &rarr;"> -->
       </form>
-    </div>
-    <!-- update content form -->
-  <div id="toolbar">
-  </div>
 
-      <!-- controlls -->
-      <div id="content"></div>
-      <div id="bottom_toolbar">
-        <button id="open_form">Wyślij</button>
-        </div>
 
-  </div>
+
 </body>
 </html>
