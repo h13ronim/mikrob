@@ -61,14 +61,6 @@ var Interface = new Class.create({
         count_str ="0";
       }
       $('mark_as_read_button').update(count_str);
-      try {
-
-        if(count_str=="0") {
-          Titanium.UI.setBadge();
-        } else {
-          Titanium.UI.setBadge(count_str);
-        }
-      } catch (badge_err) { console.log(badge_err); }
     },
     setUserAvatar : function(av_ob,login) {
       var av = "http://blip.pl/user_generated/"+av_ob.url_30 || "app://icons/nn_standard.png";
