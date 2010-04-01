@@ -24,62 +24,48 @@ var BlipInterface = new Class.create(Interface, {
     return single_status;
 
   },
-  drawPage : function(updates) {
-    var self = this;
-    var len = updates.length;
-
-    var dash = $(self.container_id);
-    dash.update();
-    updates.each(function(blip){
-      var single_status = self.getUpdateObject(blip);
-      dash.insert({'bottom': single_status});
-      self.expandLink('quoted_link');
-    });
-    // not very clever way of scrolling up ;-)
-    dash.scrollByLines(-(dash.scrollHeight));
-    self.throbber.toggle();
-  },
   draw : function(updates,is_update) {
     var self = this;
     var len = updates.length;
     var dash = $(self.container_id);
     if(is_update !==0) updates.reverse();
+    var can_notify = false;
+    if(updates.length < 4) {
+      can_notify = true;
+    }
     updates.each(function(blip, index){
      var single_status=null;
       try {
         single_status = self.getUpdateObject(blip);
-      } catch (guo_err) { console.dir(guo_err); }
-        if(is_update !== 0) {
-          dash.insert({'top': single_status});
-        } else {
-          dash.insert({'bottom': single_status});
-        }
+      } catch (guo_err) { 
+        console.dir(guo_err); 
+        single_status = ""; 
+      }
+      if(is_update !== 0) {
+        dash.insert({'top': single_status});
+      } else {
+        dash.insert({'bottom': single_status});
+      }
         self.expandLink('quoted_link');
-			 if (index < 5  && is_update !== 0) {
+			 if (can_notify) {
         var av =  'app://icons/nn_nano.png';
         if(single_status.user.avatar) {
           av = 'http://blip.pl'+single_status.user.avatar.url_50;
         }
-        try {
-          self.notify(single_status.user.login, single_status.raw_body, av );
-        }
-        catch (notifyerr) {
-          console.dir(notifyerr);
-        }
-
+         self.notify(single_status.user.login, single_status.raw_body, av );
       }
-
-
+//      if(index == updates.length-1) {
+//        self = null;
+//      }
     });
-    self.expandLink("rdir_link");
-
-    if (  is_update ===0) {
-      self.setUnreadCount('0');
+    this.expandLink("rdir_link");
+    if (is_update ===0) {
+      this.setUnreadCount('0');
     } else {
-      var unr = $$('#'+self.container_id + ' .unread').length;
-      self.setUnreadCount(""+unr);
+      var unr = $$('#'+this.container_id + ' .unread').length;
+      this.setUnreadCount(""+unr);
     }
-    self.throbber.toggle();
+    this.throbber.toggle();
   },
   expandLink : function(target_class) {
     var els = $$('.'+target_class);
